@@ -1,1 +1,1 @@
- 2goXnhrcmd/fatt/cli/version.go
+ 2goXnhrcmd/fatt/cli/version.go

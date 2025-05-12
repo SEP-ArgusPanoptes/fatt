@@ -50,7 +50,6 @@ Project scanner properties:
   - sonar.organization=sep-arguspanoptes
   - sonar.projectBaseDir=C:\Users\20221114\ClonedSEPOrg\fatt
   - sonar.projectKey=SEP-ArgusPanoptes_fatt
-  - sonar.projectName=fatt
   - sonar.scanner.app=ScannerCli
   - sonar.scanner.appVersion=3.1.0.1141
   - sonar.scanner.home=C:\Users\20221114\AppData\Local\nvm\v20.11.1\node_modules\sonar-scanner\bin\..
