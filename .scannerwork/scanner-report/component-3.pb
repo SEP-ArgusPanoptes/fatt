@@ -1,1 +1,1 @@
- 2goXOhrcmd/fatt/cli/list.go
+ 2yamlXhr.github/dependabot.yml

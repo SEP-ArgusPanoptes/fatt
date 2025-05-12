@@ -54,9 +54,9 @@ Project scanner properties:
   - sonar.scanner.appVersion=3.1.0.1141
   - sonar.scanner.home=C:\Users\20221114\AppData\Local\nvm\v20.11.1\node_modules\sonar-scanner\bin\..
   - sonar.sourceEncoding=windows-1252
-  - sonar.sources=cmd,pkg
+  - sonar.sources=.
   - sonar.test.inclusions=**/*_test.go
-  - sonar.tests=cmd,pkg
+  - sonar.tests=.
   - sonar.token=******
   - sonar.verbose=true
   - sonar.working.directory=C:\Users\20221114\ClonedSEPOrg\fatt\.scannerwork

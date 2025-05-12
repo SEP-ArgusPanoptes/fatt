@@ -1,1 +1,1 @@
-	 2goXhrcmd/fatt/cli/options/version.go
+	 2goXhrcmd/fatt/cli/options/oci.go

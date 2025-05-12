@@ -1,1 +1,1 @@
- 2goX%hrpkg/print/print.go
+ 2yamlX$hrinstaller-action/action.yaml

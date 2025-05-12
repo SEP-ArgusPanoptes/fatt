@@ -1,36 +1,35 @@
-package print
-
-import (
-	"fmt"
-	"io"
-
-	"github.com/philips-labs/fatt/pkg/attestation"
-	"github.com/philips-labs/fatt/pkg/oci"
-)
-
-// DockerPrinter prints the attestations in OCI format
-type DockerPrinter struct {
-	w io.Writer
-}
-
-var _ attestation.Printer = (*DockerPrinter)(nil)
-
-// NewDockerPrinter creates a new DockerPrinter instance utilizing the given io.Writer
-func NewDockerPrinter(w io.Writer) *DockerPrinter {
-	return &DockerPrinter{w}
-}
-
-// Print prints the attestations to the io.Writer
-func (p *DockerPrinter) Print(atts []attestation.Attestation) error {
-	for _, att := range atts {
-		purl := att.PURL
-		ref, err := oci.FromPackageURL(purl)
-		if err != nil {
-			return err
-		}
-		if _, err := fmt.Fprintln(p.w, ref.String()); err != nil {
-			return err
-		}
-	}
-	return nil
-}
+name: 'fatt installer'
+author: philips-labs
+description: 'An action to install fatt'
+branding:
+  icon: lock
+  color: purple
+inputs:
+  fatt-release:
+    description: 'fatt release version to be installed'
+    required: false
+    default: 'v0.3.0'
+  install-dir:
+    description: 'Where to install the fatt binary'
+    required: false
+    default: "$HOME/.fatt/bin"
+runs:
+  using: 'composite'
+  steps:
+    # To expand the $HOME environment variable when setting the INSTALL_PATH variable
+    # this way of adding to the GITHUB_ENV is required. Via yaml syntax 'env: …' will
+    # not work and result in a relative install-dir like
+    # /home/runner/work/slsa-workflow-examples/slsa-workflow-examples/$HOME/.fatt/bin.
+    # where you would expect /home/runner/.fatt/bin
+    - shell: bash
+      run: echo "INSTALL_PATH=${{ inputs.install-dir }}" >> $GITHUB_ENV
+    - shell: bash
+      run: $GITHUB_ACTION_PATH/install.sh
+      env:
+        VERSION: ${{ inputs.fatt-release }}
+    - if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
+      run: echo "${{ inputs.install-dir }}" >> $GITHUB_PATH
+      shell: bash
+    - if: ${{ runner.os == 'Windows' }}
+      run: echo "${{ inputs.install-dir }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      shell: pwsh

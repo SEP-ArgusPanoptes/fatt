@@ -1,0 +1,1 @@
+* (2goXGhrcmd/fatt/cli/version_test.go

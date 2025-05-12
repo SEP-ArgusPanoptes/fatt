@@ -1,78 +1,22 @@
-package cli
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-import (
-	"context"
-	"fmt"
-	"os"
+version: 2
+updates:
+  - package-ecosystem: "gomod" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    commit-message:
+      prefix: ":arrow_up:"
+    schedule:
+      interval: "daily"
 
-	"github.com/spf13/cobra"
-
-	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
-	"github.com/philips-labs/fatt/pkg/attestation"
-)
-
-// NewListCommand creates a new instance of a list command
-func NewListCommand() *cobra.Command {
-	lo := options.NewListOptions()
-
-	cmd := &cobra.Command{
-		Use:   "list <discovery-path>",
-		Short: "Lists all attestations",
-		Args: func(cmd *cobra.Command, args []string) error {
-			if len(args) != 1 {
-				d, err := os.Getwd()
-				if err != nil {
-					return err
-				}
-				lo.FilePath = d
-			} else {
-				lo.FilePath = args[0]
-			}
-
-			return nil
-		},
-		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintf(os.Stderr, "Fetching attestations from %s…\n", lo.FilePath)
-			ctx, cancel := context.WithCancel(cmd.Context())
-			defer cancel()
-
-			d, err := lo.GetDiscoverer(ctx)
-			if err != nil {
-				return err
-			}
-
-			attReader, err := d.Discover(lo.FilePath)
-			if err != nil {
-				return err
-			}
-
-			r, err := lo.GetResolver()
-			if err != nil {
-				return err
-			}
-
-			atts, err := r.Resolve(attReader)
-			if err != nil {
-				return fmt.Errorf("failed to resolve attestations: %w", err)
-			}
-
-			if lo.Filter != "" {
-				atts, err = attestation.Reduce(atts, lo.Filter)
-				if err != nil {
-					return err
-				}
-			}
-
-			p, err := lo.GetPrinter(os.Stdout)
-			if err != nil {
-				return err
-			}
-
-			return p.Print(atts)
-		},
-	}
-
-	lo.AddFlags(cmd)
-
-	return cmd
-}
+  - package-ecosystem: "github-actions"
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+    directory: "/"
+    commit-message:
+      prefix: ":arrow_up:"
+    schedule:
+      interval: "weekly"

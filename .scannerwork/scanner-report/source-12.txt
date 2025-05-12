@@ -1,14 +1,21 @@
-package main
+package options
 
 import (
-	"context"
-	"log"
-
-	"github.com/philips-labs/fatt/cmd/fatt/cli"
+	"github.com/spf13/cobra"
 )
 
-func main() {
-	if err := cli.New().ExecuteContext(context.Background()); err != nil {
-		log.Fatalf("error during command execution: %v\n", err)
-	}
+// RootOptions commandline options for the root command
+type RootOptions struct {
+}
+
+// NewRootOptions initializes the RootOptions object
+func NewRootOptions() *RootOptions {
+	return &RootOptions{}
+}
+
+var _ CommandFlagger = (*RootOptions)(nil)
+
+// AddFlags implements CommandFlagger to add the RootOptions as flags to the given command
+func (o *RootOptions) AddFlags(cmd *cobra.Command) {
+
 }
