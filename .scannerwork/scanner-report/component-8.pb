@@ -1,1 +1,0 @@
- 2goXEhrcmd/fatt/cli/options/list.go

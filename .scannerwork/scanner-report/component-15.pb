@@ -1,1 +1,0 @@
- 2goXnhrcmd/fatt/cli/version.go
