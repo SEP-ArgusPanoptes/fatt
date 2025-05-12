@@ -1,7 +1,7 @@
 organization=sep-arguspanoptes
 projectKey=SEP-ArgusPanoptes_fatt
 serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.63207
+serverVersion=8.0.0.63215
 dashboardUrl=https://sonarcloud.io/dashboard?id=SEP-ArgusPanoptes_fatt
-ceTaskId=AZbE5gwF3lf4_9qvk7Eg
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZbE5gwF3lf4_9qvk7Eg
+ceTaskId=AZbFDieVooQzi7lK1L1G
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZbFDieVooQzi7lK1L1G
